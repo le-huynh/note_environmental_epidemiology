@@ -74,6 +74,19 @@ summary(mod_gam1)
 ### visualize #---------------------
 plot(mod_gam1)
 
+pisa %>% 
+        mutate(fitted_gam1 = predict(mod_gam1,
+                                     newdata = .)) %>%
+        ggplot(aes(x = Income,
+                   y = Overall)) + 
+        geom_point(color = '#D55E00',
+                   alpha = .5) +
+        geom_line(aes(x = Income,
+                      y = fitted_gam1),
+                  color = '#56B4E9',
+                  size = 1.5) +
+        theme_bw()
+
 ### model comparison #-----------------
 AIC(mod_lm)
 AIC(mod_gam1)
@@ -102,6 +115,8 @@ mod_gam2B = update(mod_gam2, . ~ . - s(Health) + Health)
 summary(mod_gam2B)
 
 ### visualize #----------------
+plot(mod_gam2, pages = 1)
+
 plot(ggeffects::ggpredict(mod_gam2), facets = TRUE)
 
 gratia::draw(mod_gam2)
@@ -155,7 +170,4 @@ fig <- fd_inc %>%
         theme(panel.grid = element_blank())
 
 fig
-
-
-
 

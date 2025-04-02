@@ -200,6 +200,32 @@ plot(mod_gam1)
 ![](gam_mclark_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 ``` r
+pisa %>% 
+        mutate(fitted_gam1 = predict(mod_gam1,
+                                     newdata = .)) %>%
+        ggplot(aes(x = Income,
+                   y = Overall)) + 
+        geom_point(color = '#D55E00',
+                   alpha = .5) +
+        geom_line(aes(x = Income,
+                      y = fitted_gam1),
+                  color = '#56B4E9',
+                  size = 1.5) +
+        theme_bw()
+```
+
+    ## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+    ## ℹ Please use `linewidth` instead.
+    ## This warning is displayed once every 8 hours.
+    ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was generated.
+
+    ## Warning: Removed 11 rows containing missing values or values outside the scale range (`geom_point()`).
+
+    ## Warning: Removed 4 rows containing missing values or values outside the scale range (`geom_line()`).
+
+![](gam_mclark_files/figure-gfm/unnamed-chunk-6-2.png)<!-- -->
+
+``` r
 ### model comparison #-----------------
 AIC(mod_lm)
 ```
@@ -343,23 +369,29 @@ summary(mod_gam2B)
 
 ``` r
 ### visualize #----------------
-plot(ggeffects::ggpredict(mod_gam2), facets = TRUE)
+plot(mod_gam2, pages = 1)
 ```
 
 ![](gam_mclark_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 ``` r
-gratia::draw(mod_gam2)
+plot(ggeffects::ggpredict(mod_gam2), facets = TRUE)
 ```
 
 ![](gam_mclark_files/figure-gfm/unnamed-chunk-7-2.png)<!-- -->
+
+``` r
+gratia::draw(mod_gam2)
+```
+
+![](gam_mclark_files/figure-gfm/unnamed-chunk-7-3.png)<!-- -->
 
 ``` r
 # 2d smooths
 vis.gam(mod_gam2, type = 'response', plot.type = 'contour')
 ```
 
-![](gam_mclark_files/figure-gfm/unnamed-chunk-7-3.png)<!-- -->
+![](gam_mclark_files/figure-gfm/unnamed-chunk-7-4.png)<!-- -->
 
 - High Income → highest Overall science scores.  
 - Education has less effect.  
@@ -403,8 +435,8 @@ gam.check(mod_gam2, k.rep = 1000)
     ## 
     ##             k'  edf k-index p-value
     ## s(Income) 9.00 7.59    1.26    0.96
-    ## s(Edu)    9.00 6.20    1.01    0.50
-    ## s(Health) 9.00 1.00    0.90    0.17
+    ## s(Edu)    9.00 6.20    1.01    0.47
+    ## s(Health) 9.00 1.00    0.90    0.20
 
 ``` r
 par(mfrow = c(1, 1))
