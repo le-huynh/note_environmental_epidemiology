@@ -6,6 +6,8 @@ by Roger D. Peng and Francesca Dominici.
 Book available for purchase [here](https://link.springer.com/book/10.1007/978-0-387-78167-9).  
 - Generalized Additive Models: tutorials by [Noam Ross](https://noamross.github.io/gams-in-r-course/) 
 and [Michael Clark](https://m-clark.github.io/generalized-additive-models/).  
+- [Environmental-Data-Science](https://bookdown.org/igisc/EnvDataSci/) by Jerry Davis.  
+- Distributed lag non-linear models by [Antonio Gasparrini](http://www.ag-myresearch.com/).  
 
 
 
